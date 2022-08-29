@@ -1,0 +1,29 @@
+{
+    "name": "codeboxr/pathao-courier",
+    "description": "Bangladeshi Pathao courier service api package",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Codeboxr\\PathaoCourier\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Codeboxr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.2|^7.3|^8.0|^8.1",
+        "illuminate/support": "~6|~7|~8",
+        "guzzlehttp/guzzle": "^7.0.1"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codeboxr\\PathaoCourier\\PathaoCourierServiceProvider"
+            ]
+        }
+    }
+}
