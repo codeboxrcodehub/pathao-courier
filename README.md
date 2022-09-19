@@ -51,7 +51,7 @@ PATHAO_PASSWORD=""
 ```
 use Codeboxr\PathaoCourier\Facade\PathaoCourier
 
-return PathaoCourierFacade::area()->city();
+return PathaoCourier::area()->city();
 
 ```
 
@@ -131,17 +131,6 @@ use Codeboxr\PathaoCourier\Facade\PathaoCourier
 
 return PathaoCourier::order()->orderDetails($consignmentId); // After successfully create order they given a consignment_id
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 
 
