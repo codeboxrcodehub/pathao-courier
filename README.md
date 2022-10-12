@@ -12,9 +12,9 @@ This is a Laravel/PHP package for [Pathao](https://pathao.com) BD Courier System
 
 ## Features
 
-1. [Fetch Pathao delivery city list](https://github.com/codeboxrcodehub/pathao-courier#1-get-pathao-delivery-city-list)
-2. [Fetch Pathao delivery zone list](https://github.com/codeboxrcodehub/pathao-courier#2-to-get-pathao-zone-list)
-3. [Fetch Pathao delivery area list](https://github.com/codeboxrcodehub/pathao-courier#3-to-get-pathao-delivery-area-list)
+1. [Fetch Pathao delivery/store city list](https://github.com/codeboxrcodehub/pathao-courier#1-get-pathao-delivery-city-list)
+2. [Fetch Pathao delivery/store zone list](https://github.com/codeboxrcodehub/pathao-courier#2-to-get-pathao-zone-list)
+3. [Fetch Pathao delivery/store area list](https://github.com/codeboxrcodehub/pathao-courier#3-to-get-pathao-delivery-area-list)
 4. [Create pickup store](https://github.com/codeboxrcodehub/pathao-courier#4-create-new-store)
 5. [Fetch pickup store list](https://github.com/codeboxrcodehub/pathao-courier#5-get-store-list)
 6. [Create parcel](https://github.com/codeboxrcodehub/pathao-courier#6-create-new-parcel)
