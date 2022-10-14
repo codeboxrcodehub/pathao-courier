@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ClientException;
 use Codeboxr\PathaoCourier\Exceptions\PathaoException;
+use Codeboxr\PathaoCourier\Exceptions\PathaoCourierValidationException;
 
 class BaseApi
 {
@@ -157,6 +158,37 @@ class BaseApi
             }
             throw new PathaoException($message, $e->getCode(), $errors);
         }
+    }
+
+    /**
+     * Data Validation
+     *
+     * @param array $data
+     * @param array $requiredFields
+     *
+     * @throws PathaoCourierValidationException
+     */
+    public function validation($data, $requiredFields)
+    {
+        if (!is_array($data) || !is_array($requiredFields)) {
+            throw new \TypeError("Argument must be of the type array", 500);
+        }
+
+        if (!count($data) || !count($requiredFields)) {
+            throw new PathaoCourierValidationException("Invalid data!", 422);
+        }
+
+        $requiredColumns = array_diff($requiredFields, array_keys($data));
+        if (count($requiredColumns)) {
+            throw new PathaoCourierValidationException($requiredColumns, 422);
+        }
+
+        foreach ($requiredFields as $filed) {
+            if (isset($data[$filed]) && empty($data[$filed])) {
+                throw new PathaoCourierValidationException("$filed is required", 422);
+            }
+        }
+
     }
 
 }

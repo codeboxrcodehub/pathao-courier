@@ -4,6 +4,7 @@ namespace Codeboxr\PathaoCourier\Apis;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Codeboxr\PathaoCourier\Exceptions\PathaoException;
+use Codeboxr\PathaoCourier\Exceptions\PathaoCourierValidationException;
 
 class StoreApi extends BaseApi
 {
@@ -29,10 +30,14 @@ class StoreApi extends BaseApi
      *
      * @return mixed
      * @throws GuzzleException
-     * @throws PathaoException
+     * @throws PathaoException|PathaoCourierValidationException
      */
     public function create($storeInfo)
     {
+        $this->validation($storeInfo, [
+            "name", "contact_name", "contact_number", "address", "city_id", "zone_id", "area_id"
+        ]);
+
         $response = $this->authorization()->send("POST", "aladdin/api/v1/stores", $storeInfo);
         return $response->data;
     }
