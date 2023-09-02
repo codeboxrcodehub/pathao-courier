@@ -44,7 +44,7 @@ class BaseApi
         if (config("pathao.sandbox") == true) {
             $this->baseUrl = "https://courier-api-sandbox.pathao.com";
         } else {
-            $this->baseUrl = "https://api-hermes.pathaointernal.com";
+            $this->baseUrl = "https://api-hermes.pathao.com";
         }
     }
 
