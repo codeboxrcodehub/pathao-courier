@@ -42,7 +42,7 @@ class BaseApi
     private function setBaseUrl()
     {
         if (config("pathao.sandbox") == true) {
-            $this->baseUrl = "https://hermes-api.p-stageenv.xyz";
+            $this->baseUrl = "https://courier-api-sandbox.pathao.com";
         } else {
             $this->baseUrl = "https://api-hermes.pathaointernal.com";
         }
@@ -91,7 +91,6 @@ class BaseApi
             ];
 
             Storage::disk('local')->put('pathao_bearer_token.json', json_encode($accessToken));
-
         } catch (ClientException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents());
             throw new PathaoException($response->message, $response->code);
@@ -188,7 +187,5 @@ class BaseApi
                 throw new PathaoCourierValidationException("$filed is required", 422);
             }
         }
-
     }
-
 }
