@@ -183,7 +183,7 @@ class BaseApi
         }
 
         foreach ($requiredFields as $filed) {
-            if (isset($data[$filed]) && empty($data[$filed])) {
+            if (isset($data[$filed]) && $data[$filed] == "") {
                 throw new PathaoCourierValidationException("$filed is required", 422);
             }
         }
