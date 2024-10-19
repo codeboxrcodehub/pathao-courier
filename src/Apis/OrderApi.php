@@ -74,4 +74,37 @@ class OrderApi extends BaseApi
         $response = $this->authorization()->send("POST", "aladdin/api/v1/merchant/price-plan", $array);
         return $response->data;
     }
+
+
+    /**
+     * Order Cancel
+     *
+     * @param string $consignmentId
+     *
+     * @return mixed
+     * @throws GuzzleException
+     * @throws PathaoException
+     */
+
+     public function cancel($consignmentId)
+     {
+         $response = $this->authorization()->send("POST", "aladdin/api/v1/orders/{$consignmentId}/cancel");
+         return $response->data;
+     }
+ 
+     /**
+      * Get customer success rate
+      *
+      * @param string $phone
+      *
+      * @return mixed
+      * @throws GuzzleException
+      * @throws PathaoException
+      */
+ 
+     public function successRate($phone)
+     {
+         $response = $this->authorization()->send("POST", "aladdin/api/v1/user/success", ['phone' => $phone]);
+         return $response->data;
+     }
 }
