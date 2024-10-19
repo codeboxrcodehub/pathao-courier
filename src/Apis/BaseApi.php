@@ -39,7 +39,7 @@ class BaseApi
     /**
      * Set Base Url on sandbox mode
      */
-    private function setBaseUrl()
+    public function setBaseUrl()
     {
         if (config("pathao.sandbox") == true) {
             $this->baseUrl = "https://courier-api-sandbox.pathao.com";
@@ -51,7 +51,7 @@ class BaseApi
     /**
      * Set Default Headers
      */
-    private function setHeaders()
+    public function setHeaders()
     {
         $this->headers = [
             "Accept"       => "application/json",
@@ -64,7 +64,7 @@ class BaseApi
      *
      * @param array $header
      */
-    private function mergeHeader($header)
+    public function mergeHeader($header)
     {
         $this->headers = array_merge($this->headers, $header);
     }
@@ -74,7 +74,7 @@ class BaseApi
      *
      * @throws PathaoException|GuzzleException
      */
-    private function authenticate()
+    public function authenticate()
     {
         try {
             $response = $this->send("POST", "aladdin/api/v1/issue-token", [
@@ -90,7 +90,7 @@ class BaseApi
                 "expires_in" => time() + $response->expires_in
             ];
 
-            Storage::disk('local')->put('pathao_bearer_token.json', json_encode($accessToken));
+            Storage::disk(config("pathao.disk", "local"))->put('pathao_bearer_token.json', json_encode($accessToken));
         } catch (ClientException $e) {
             $response = json_decode($e->getResponse()->getBody()->getContents());
             throw new PathaoException($response->message, $response->code);
@@ -105,18 +105,18 @@ class BaseApi
      */
     public function authorization()
     {
-        $storageExits = Storage::disk('local')->exists('pathao_bearer_token.json');
+        $storageExits = Storage::disk(config("pathao.disk", "local"))->exists('pathao_bearer_token.json');
 
         if (!$storageExits) {
             $this->authenticate();
         }
 
-        $jsonToken = Storage::get('pathao_bearer_token.json');
+        $jsonToken = Storage::disk(config("pathao.disk", "local"))->get('pathao_bearer_token.json');
         $jsonToken = json_decode($jsonToken);
 
         if ($jsonToken->expires_in < time()) {
             $this->authenticate();
-            $jsonToken = Storage::get('pathao_bearer_token.json');
+            $jsonToken = Storage::disk(config("pathao.disk", "local"))->get('pathao_bearer_token.json');
             $jsonToken = json_decode($jsonToken);
         }
 
@@ -183,7 +183,7 @@ class BaseApi
         }
 
         foreach ($requiredFields as $filed) {
-            if (isset($data[$filed]) && $data[$filed] == "") {
+            if (isset($data[$filed]) && empty($data[$filed])) {
                 throw new PathaoCourierValidationException("$filed is required", 422);
             }
         }
