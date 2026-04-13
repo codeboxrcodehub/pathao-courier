@@ -107,4 +107,20 @@ class OrderApi extends BaseApi
          $response = $this->authorization()->send("POST", "aladdin/api/v1/user/success", ['phone' => $phone]);
          return $response->data;
      }
+
+    /**
+      * Get Order Log
+      *
+      * @param string $phone
+      *
+      * @return mixed
+      * @throws GuzzleException
+      * @throws PathaoException
+      */
+ 
+     public function orderLog($consignmentId, $recipient_phone)
+     {
+         $response = $this->authorization()->send("GET", "aladdin/api/v1/orders/{$consignmentId}/{$recipient_phone}/activity?archive=0");
+         return $response->data;
+     }
 }
